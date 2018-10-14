@@ -14,6 +14,7 @@ function Invoke-TranslateText {
         [string]$Key
     )
     DynamicParam {
+        #$Dictionary = $true
         # Pobranie aktualnej listy jezyków i przygotowanie pod ValidateSet
         if ($translate) {
             $type = 'translation'
@@ -51,7 +52,6 @@ function Invoke-TranslateText {
         $RuntimeParameterDictionary.Add($ParameterNameTo, $RuntimeParameterTo)
        
         if ($Dictionary) {
-
             #Parametr -From dla Dictonary
             $ParameterNameFrom = 'From'
             $acFrom = New-Object System.Collections.ObjectModel.Collection[System.Attribute]
@@ -63,9 +63,9 @@ function Invoke-TranslateText {
             # Add the attributes to the attributes collection
             $acFrom.Add($paFrom)
             $ValidateSetAttributeFrom = New-Object System.Management.Automation.ValidateSetAttribute($($listLang | Select-Object -ExpandProperty Name))
-            $acTo.Add($ValidateSetAttributeFrom)
+            $acFrom.Add($ValidateSetAttributeFrom)
 
-            $RuntimeParameterTo = New-Object System.Management.Automation.RuntimeDefinedParameter($ParameterNameFrom, [string[]], $acTo)
+            $RuntimeParameterFrom = New-Object System.Management.Automation.RuntimeDefinedParameter($ParameterNameFrom, [string[]], $acFrom)
             $RuntimeParameterDictionary.Add($ParameterNameFrom, $RuntimeParameterFrom)
         }
         return $RuntimeParameterDictionary
@@ -103,7 +103,10 @@ function Invoke-TranslateText {
 
     }
 }    
-# $Key = ''
+
+# Tutaj wklejamy klucz
+$Key = ''
+
 # Tłumaczenie słów w słowniku 
 'chmura', 'świetnie' | Invoke-TranslateText -Dictionary -to English -From Polish -Key $Key
 
