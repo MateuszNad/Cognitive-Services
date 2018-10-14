@@ -72,6 +72,7 @@ function Invoke-TranslateText {
     }
 
     begin {
+        $ErrorActionPreference = 'Stop'
         $To = $PsBoundParameters[$ParameterNameTo]
         if ($ParameterNameFrom) {
             $From = $PsBoundParameters[$ParameterNameFrom]
@@ -93,13 +94,18 @@ function Invoke-TranslateText {
         [string]$uri = $host + $path + $param
     }
     process {
-        $Body = @{} | Select-Object Text
-        $Body.Text = $Text 
-        $JsonBody = $Body | ConvertTo-Json 
+        try {
+            $Body = @{} | Select-Object Text
+            $Body.Text = $Text 
+            $JsonBody = $Body | ConvertTo-Json 
 
-        $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
-        $headers.Add("Ocp-Apim-Subscription-Key", $Key)
-        Invoke-RestMethod -Uri $uri -Headers $headers -Body "[$JsonBody]" -ContentType "application/json; charset=utf-8" -Method Post 
+            $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+            $headers.Add("Ocp-Apim-Subscription-Key", $Key)
+            Invoke-RestMethod -Uri $uri -Headers $headers -Body "[$JsonBody]" -ContentType "application/json; charset=utf-8" -Method Post 
+        }
+        catch {
+            Write-Host $_ -ForegroundColor Yellow
+        }
     }
     end {
 
