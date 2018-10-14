@@ -115,7 +115,7 @@ function Invoke-TranslateText {
 # Tutaj wklejamy klucz
 $Key = ''
 
-# Tłumaczenie słów w słowniku 
+# Tłumaczenie słów 
 'chmura', 'świetnie' | Invoke-TranslateText -Dictionary -to English -From Polish -Key $Key
 
 # normalizedSource displaySource translations
