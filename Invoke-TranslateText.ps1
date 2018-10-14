@@ -73,8 +73,10 @@ function Invoke-TranslateText {
 
     begin {
         $To = $PsBoundParameters[$ParameterNameTo]
-        $From = $PsBoundParameters[$ParameterNameFrom]
-        
+        if ($ParameterNameFrom) {
+            $From = $PsBoundParameters[$ParameterNameFrom]
+        }
+
         [string]$param = ''
         [string]$host = "https://api.cognitive.microsofttranslator.com"
         
