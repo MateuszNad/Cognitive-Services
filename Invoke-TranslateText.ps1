@@ -110,5 +110,15 @@ $Key = ''
 # Tłumaczenie słów w słowniku 
 'chmura', 'świetnie' | Invoke-TranslateText -Dictionary -to English -From Polish -Key $Key
 
+# normalizedSource displaySource translations
+# ---------------- ------------- ------------
+# chmura           chmura        {@{normalizedTarget=cloud; displayTarget=cloud; posTag=NOUN; confidence=1,0; prefixWord=; backTranslations=System.Object[]}}
+# świetnie         świetnie      {@{normalizedTarget=great; displayTarget=great; posTag=ADJ; confidence=0,4832; prefixWord=; backTranslations=System.Object[]}, @{normalizedTarget=brilliantly; displayTarget=brilliantly; posTag=A...
+
+
 # Tłumaczenie wyrażenia
 'Poznaje wszystkie usługi w Azure dzięki Chmurowisko.pl' | Invoke-TranslateText -Translate -To English -Key $Key
+
+# detectedLanguage           translations
+# ----------------           ------------
+# @{language=pl; score=0,88} {@{text=Explores all the services in Azure with Chmurowisko.pl; to=en}}
